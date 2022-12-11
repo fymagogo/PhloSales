@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Phlo.Api.Context;
+using Phlo.Api.Models;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,34 +26,61 @@ namespace Phlo.Api.Controllers
 
         // GET: api/<OrdersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var orders = await _dbContext.Orders.ToListAsync();
+            if (orders == null) return NotFound();
+            return Ok(orders);
         }
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return "value";
+            var order = await _dbContext.Orders
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+            if (order == null) return NotFound();
+
+            return Ok(order);
         }
 
         // POST api/<OrdersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Create(CreateUpdateOrder order)
         {
+            var newOrder = new Order { CustomerName = order.CustomerName, Price = order.Price, ProductId = order.ProductId };
+            _dbContext.Orders.Add(newOrder);
+            await _dbContext.SaveChanges();
+            return Ok();
         }
 
         // PUT api/<OrdersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Update(int id, CreateUpdateOrder orderUpdate)
         {
+            var order = _dbContext.Orders.Where(a => a.Id == id).FirstOrDefault();
+            if (order == null) return NotFound();
+            else
+            {
+                order.CustomerName = orderUpdate.CustomerName;
+                order.Price = orderUpdate.Price;
+                order.ProductId = orderUpdate.ProductId;
+                await _dbContext.SaveChanges();
+                return Ok(order.Id);
+            }
         }
 
         // DELETE api/<OrdersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var orders = await _dbContext.Orders.Where(a => a.Id == id).FirstOrDefaultAsync();
+            if (orders == null) return NotFound();
+            _dbContext.Orders.Remove(orders);
+            await _dbContext.SaveChanges();
+            return Ok();
         }
+
     }
 }
