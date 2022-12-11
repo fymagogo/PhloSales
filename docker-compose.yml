@@ -1,0 +1,34 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports: # not actually needed, because the two services are on the same network.
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=A&VeryComplex123Password
+    volumes:
+      - sqldata:/var/opt/mssql
+  api:
+    build:
+      context: .
+      dockerfile: ./Client.App/Dockerfile # build the Docker image 
+    container_name: api_application
+    ports:
+      - "44379:44379"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=tcp:db,1433;Database=phloSales;User Id=sa;Password=A&VeryComplex123Password;
+    depends_on:
+      - db
+
+  web:
+    image: "my-react-app:latest"
+    container_name: react_app
+    ports: 
+      - "3000:80"
+    depends_on:
+      - api
+  
+volumes:
+  sqldata:
