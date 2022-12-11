@@ -18,8 +18,8 @@ namespace Phlo.Api.Context
                 new Product { Id = 1, Name = "Laptop" },
                 new Product { Id = 2, Name = "Keyboard" },
                 new Product { Id = 3, Name = "Monitor" },
-                new Product { Id = 3, Name = "Mouse" },
-                new Product { Id = 3, Name = "Webcam" }
+                new Product { Id = 4, Name = "Mouse" },
+                new Product { Id = 5, Name = "Webcam" }
                 );
 
             modelBuilder.Entity<Order>()
