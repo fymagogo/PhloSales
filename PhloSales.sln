@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlo.Api", "Phlo.Api\Phlo.Api.csproj", "{0A56D35C-9675-4303-B523-C63710E17251}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd", "FrontEnd\FrontEnd.esproj", "{BC700776-D954-4560-8846-AC1A7317A27E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,19 @@ Global
 		{0A56D35C-9675-4303-B523-C63710E17251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A56D35C-9675-4303-B523-C63710E17251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A56D35C-9675-4303-B523-C63710E17251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC700776-D954-4560-8846-AC1A7317A27E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0A56D35C-9675-4303-B523-C63710E17251} = {CBE6D344-A022-46F6-BAF5-DA0E510D8E3B}
+		{BC700776-D954-4560-8846-AC1A7317A27E} = {CBE6D344-A022-46F6-BAF5-DA0E510D8E3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A6D39DD8-BE80-4495-8EEF-7E733B8D8422}

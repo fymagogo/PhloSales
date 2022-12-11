@@ -82,6 +82,7 @@ namespace Phlo.Api.Controllers
                 .Where(b => b.Orders.Any())
                 .Select(c => new ProductSold
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     MaxPrice = c.Orders.Max(d => d.Price),
                     MinPrice = c.Orders.Min(d => d.Price),
