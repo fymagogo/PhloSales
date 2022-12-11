@@ -76,7 +76,6 @@ namespace Phlo.Api.Controllers
         [HttpGet("sold")]
         public async Task<IActionResult> ProductsSold()
         {
-            //var orders = await _dbContext.Orders.ToListAsync();
             var products = await _dbContext.Products
                 .Include(a => a.Orders)
                 .Where(b => b.Orders.Any())

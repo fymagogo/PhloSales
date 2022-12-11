@@ -18,6 +18,8 @@ namespace Phlo.Api
 {
     public class Startup
     {
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,6 +50,16 @@ namespace Phlo.Api
             });
             #endregion
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyOrigin().AllowAnyHeader();
+                                  });
+            });
+
+
             services.AddControllers();
         }
 
@@ -74,6 +86,8 @@ namespace Phlo.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

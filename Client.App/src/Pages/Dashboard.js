@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
-    static displayName = App.name;
+export default class Dashboard extends Component {
+    static displayName = Dashboard.name;
 
     constructor(props) {
         super(props);
         this.state = { products: [], loading: true };
     }
 
-    componentDidMount() {
-        this.populateWeatherData();
+    async componentDidMount() {
+       await this.populateOrdersData();
     }
 
     static renderForecastsTable(products) {
+        const currency = Intl.NumberFormat("en-US", { style: "currency", currency: "GHS" });
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
@@ -25,11 +26,11 @@ export default class App extends Component {
                 </thead>
                 <tbody>
                     {products.map(product =>
-                        <tr key={product.Id}>
-                            <td>{product.Name}</td>
-                            <td>{product.temperatureC}</td>
-                            <td>{product.temperatureF}</td>
-                            <td>{product.summary}</td>
+                        <tr key={product.id}>
+                            <td>{product.name}</td>
+                            <td>{product.numberOfOrders}</td>
+                            <td>{currency.format(product.maxPrice)}</td>
+                            <td>{currency.format(product.minPrice)}</td>
                         </tr>
                     )}
                 </tbody>
@@ -38,21 +39,22 @@ export default class App extends Component {
     }
 
     render() {
+        //this.populateOrdersData();
         let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : App.renderForecastsTable(this.state.products);
+            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. </em></p>
+            : Dashboard.renderForecastsTable(this.state.products);
 
         return (
             <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
+                <h1 id="tabelLabel" >Product Orders</h1>
+                <p>Find below the various products sold.</p>
                 {contents}
             </div>
         );
     }
 
-    async populateWeatherData() {
-        const response = await fetch('/api/Products/sold');
+    async populateOrdersData() {
+        const response = await fetch('https://localhost:44379/api/Products/sold');
         const data = await response.json();
         this.setState({ products: data, loading: false });
     }
