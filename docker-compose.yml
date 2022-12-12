@@ -13,7 +13,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: ./Client.App/Dockerfile # build the Docker image 
+      dockerfile: ./Phlo.Api/Dockerfile # build the Docker image 
     container_name: api_application
     ports:
       - "44379:44379"
@@ -23,7 +23,9 @@ services:
       - db
 
   web:
-    image: "my-react-app:latest"
+    build:
+      context: .
+      dockerfile: ./Client.App/Dockerfile # build the Docker image 
     container_name: react_app
     ports: 
       - "3000:80"
