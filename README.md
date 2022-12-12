@@ -1,5 +1,5 @@
 # PhloSales
-This repo contains two projects. The Api microservice and the React client app.
+This repo contains two projects. The Api microservice and the React Client App.
 
 Its a simple project to illustrate the microservice architecture.
 
@@ -20,3 +20,6 @@ Access the UI from
 
 The home page allows you to place orders and the dashboard allows you to view the products sold, 
 number of orders and max and min prices each product was sold for.
+
+Alternatily you can run the Api solution in [visual studio](https://visualstudio.microsoft.com/) 
+and run the client app separately using `npm start`.
